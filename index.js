@@ -30,8 +30,10 @@ app.use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   // ROUTING EXAMPLES
-  .get('/', (req, res) => res.render('pages/index', { title: 'Home' }))
-  .get('/help', (req, res) => res.render('pages/help', { title: 'Help' }))
+  .get('/', (req, res) => res.redirect('/auth/login'))
+  .get('/profile', (req, res) => res.render('pages/profile', { title: 'Edit Profile' }))
+  .get('/home', (req, res) => res.render('pages/home', { title: 'Home' }))
+  .get('/messages', (req, res) => res.render('pages/messages', { title: 'Messages' }))
   // ROUTING STARTS HERE
 
 
@@ -45,6 +47,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 // Handles HTTP requests that go to https://localhost:PORT/auth
 
 // Login User function
+// Input Values: 
+//    username: string
+//    password: string
 // Return Values:
 //    null: if matching user does not exist
 //    object: returns the correct user
@@ -88,11 +93,12 @@ async function registerUser(username, password) {
 }
 
 // Register page methods
-auth.get('/register', (req, res) => res.render('pages/auth/register', { title: 'Register' }))
-auth.post('/register', async (req, res) => {
+auth.get('/signup', (req, res) => res.render('pages/auth/signup', { title: 'Sign Up' }))
+auth.post('/signup', async (req, res) => {
   if (await registerUser(req.body.username, req.body.password)) {
     res.send(`User "${req.body.username}" has been created.`)
   } else {
     res.send(`User "${req.body.username}" already exists.`)
   }
 });
+

@@ -9,14 +9,15 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-12">
-          <h1>Register</h1>
-          <form action="/auth/register" method="post" autocomplete="on">
+          <h1>Sign Up</h1>
+          <form action="/auth/signup" method="post" autocomplete="on">
             <label for="username">Username:</label><br>
             <input type="text" id="username" name="username"><br>
             <label for="password">Password:</label><br>
             <input type="password" id="password" name="password"><br>
             <input type="submit" value="Submit"><br>
           </form>
+          <p>Already a user?</p><a href="/auth/login">LOGIN</a>
         </div>
       </div>
     </div>

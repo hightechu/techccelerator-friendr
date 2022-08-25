@@ -1,0 +1,54 @@
+
+  <%- include('../partials/head'); %>
+
+  <%- include('../partials/header'); %>
+  
+  <main>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+         <div id="word-cloud"></div> 
+          <i class="fa fa-thumbs-up thumbs pull-left" onclick="like()"></i>
+          <i class="fa fa-thumbs-down thumbs pull-right" onclick="dislike()"></i>
+        </div>
+      </div>
+    </div>
+    <div id="nav">
+      <%- include('../partials/nav'); %>
+    </div>
+
+  </main>
+  <script>
+    anychart.onDocumentReady(function()
+    {
+      var data = [
+    {"x": "John", "value": 100},
+    {"x": "Soccer", "value": 25},
+    {"x": "Chess", "value": 25 },
+    {"x": "Coding", "value": 25 },
+    {"x": "Video Games", "value": 25 }
+
+  ];
+
+      let chart = anychart.tagCloud(data);
+
+      chart.angles([-45, 0,  90]);
+
+      chart.tooltip(false);
+      chart.container("word-cloud");
+      chart.draw();
+    });
+
+    function like()
+    {
+      console.log("like")
+    }
+
+    function dislike()
+    {
+      console.log("dislike")
+
+    }
+  </script>
+    <%- include('../partials/footer'); %>
+  
