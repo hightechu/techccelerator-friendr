@@ -35,7 +35,13 @@ app.use(express.static(path.join(__dirname, 'public')))
   .get('/home', (req, res) => res.render('pages/home', { title: 'Home' }))
   .get('/messages', (req, res) => res.render('pages/messages', { title: 'Messages' }))
   // ROUTING STARTS HERE
+  .post('/profile', async (req, res) => {
+    console.log(req.body.name)
+    db.none(`UPDATE users SET Name = '${req.body.name}', Age = '${req.body.age}', School = '${req.body.school}', Interest = '${req.body.interest}' WHERE Username = '???'`)
 
+
+    
+  })
 
 
   // ROUTING ENDS HERE

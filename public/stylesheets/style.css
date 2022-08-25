@@ -3,13 +3,28 @@ header {
   padding: 0 0.25rem;
   margin-bottom: 2rem;
 }
-img {
-  width: 100px;
+
+.tag-container {
+  border: 1px solid black;
+}
+.tag-container span {
+  background-color: lightblue;
+  border: 1px solid blue;
+  padding-left: 1em;
+  margin-right: 1em;
+}
+.tag-container span button {
+  margin-left: 1em;
+}
+.tag-container input:focus, .tag-container input {
+  outline: none;
+  border: 0;
 }
 
 /* Bootstrap Fix */
 .row {
   padding: 0 1.25rem;
 }
+
 
 
