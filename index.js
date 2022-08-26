@@ -9,11 +9,12 @@ const { errors, queryResult } = require('pg-promise');
 const { isNull } = require('util');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const { randomInt } = require('crypto');
 var usersession
 const pgp = require('pg-promise')();
 const db = pgp({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
+  connectionString: process.env.DATABASE_URL/*,
+  ssl: { rejectUnauthorized: false }*/
 });
 const PORT = process.env.PORT || 5000
 const saltRounds = 10;
@@ -47,7 +48,16 @@ app.use(express.static(path.join(__dirname, 'public')))
   // ROUTING EXAMPLES
   .get('/', (req, res) => res.redirect('/auth/login'))
   .get('/profile', (req, res) => res.render('pages/profile', { title: 'Edit Profile' }))
-  .get('/home', (req, res) => res.render('pages/home', { title: 'Home' }))
+  .get('/home', async (req, res) => {
+    var users = await db.query(`SELECT * FROM users`, (users) => {return users})
+    var randomUser = users[randomInt(users.length)]
+    res.render('pages/home', { title: 'Home' , displayUser: randomUser})
+  })
+  .get('/home/next', async (req, res) => {
+    var users = await db.query(`SELECT * FROM users`, (users) => {return users})
+    var randomUser = users[randomInt(users.length)]
+    res.render('pages/home', { title: 'Home' , displayUser: randomUser})
+  })
   .get('/messages', (req, res) => res.render('pages/messages', { title: 'Messages' }))
   // ROUTING STARTS HERE
   .post('/profile', async (req, res) => {

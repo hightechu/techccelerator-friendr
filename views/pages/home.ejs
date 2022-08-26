@@ -7,9 +7,12 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-12">
-         <div id="word-cloud"></div> 
-          <i class="fa fa-thumbs-up thumbs pull-left" onclick="like()"></i>
-          <i class="fa fa-thumbs-down thumbs pull-right" onclick="dislike()"></i>
+         <div id="word-cloud"></div>
+          <form method="get" action="/home/next">
+            <button class="fa fa-thumbs-up thumbs pull-left" type="submit"></button>
+            <button class="fa fa-thumbs-down thumbs pull-right" type="submit"></button>
+          </form>
+
         </div>
       </div>
     </div>
@@ -19,8 +22,10 @@
 
   </main>
   <script>
+    
     anychart.onDocumentReady(function()
     {
+      console.log(<%= displayUser.interest %>);
       var data = [
     {"x": "John", "value": 100},
     {"x": "Soccer", "value": 25},
@@ -38,17 +43,6 @@
       chart.container("word-cloud");
       chart.draw();
     });
-
-    function like()
-    {
-      console.log("like")
-    }
-
-    function dislike()
-    {
-      console.log("dislike")
-
-    }
   </script>
     <%- include('../partials/footer'); %>
   
