@@ -26,7 +26,7 @@ db.query("CREATE TABLE IF NOT EXISTS users ( \
   Name varchar(20), \
   Age SMALLINT, \
   School varchar(30), \
-  Interest varchar(30)[]);"
+  Interest TEXT[]);"
 );
 // DEVELOPERS SHOULD ADD CODE HERE
 
@@ -52,10 +52,14 @@ app.use(express.static(path.join(__dirname, 'public')))
   // ROUTING STARTS HERE
   .post('/profile', async (req, res) => {
 
-    console.log(req.session.id)
-    db.none(`ALTER TABLE users WHERE Username='${req.session.userid}' WITH (Name='${req.body.name}', Age='${req.body.age}', School='${req.body.school}',Interest=ARRAY'${req.body.interest}')`)
+    
+    console.log(req.body)
 
 
+
+    db.none(`UPDATE users SET Name='${req.body.name}', Age=${req.body.age}, School='${req.body.school}', Interest=ARRAY[${req.body.interest}] WHERE Username='${req.session.userid}'`)
+
+    res.redirect("/profile");
     
   })
 

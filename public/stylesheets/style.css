@@ -1,8 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+:root
+{
+  /* CSS HEX */
+--baby-blue-eyes: #b7d3f2ff;
+--maximum-blue-purple: #afafdcff;
+--medium-purple: #8a84e2ff;
+--french-sky-blue: #84afe6ff;
+--aero: #79beeeff;
+
+}
+
 /* Additional styles go here */
 header {
   padding: 0 0.25rem;
   margin-bottom: 2rem;
 }
+
+
+
+body{
+  background-color: var(--medium-purple);
+  font-family: 'Rubik', sans-serif;
+
+}
+
+nav{
+  background-color: var(--baby-blue-eyes);
+}
+
 
 .tag-container {
   border: 1px solid black;

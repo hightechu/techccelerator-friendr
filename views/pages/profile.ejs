@@ -10,14 +10,14 @@
     <div class="row">
       <div class="col-sm-12">
         <h1>Edit Profile</h1>
-        <form action="/profile" method="post">
+        <form>
           <input type="text" id="name" name="name" placeholder="Name"><br><br>
-          <input type="text" id="age" name="age" placeholder="Age"><br><br>
+          <input type="number" id="age" name="age" placeholder="Age"><br><br>
           <input type="text" id="school" name="school" placeholder="School"><br><br>
           <div class="tag-container">
             <input id="interest" name="interest" placeholder="Interest(s)"></input>
           </div><br><br><br><br>
-          <input type="submit" value="Submit">
+          <button onclick="post()"></button>
         </form>
       </div>
     </div>
@@ -25,17 +25,36 @@
 </main>
 
 <script>
+   var xhr =  new XMLHttpRequest();
+  let interests = "";
   const input = document.getElementById("interest");
+  const age = document.getElementById("age");
+  const name = document.getElementById("name");
+  const school = document.getElementById("school");
+
   input.addEventListener('keydown', (event) => {
-    if (event.keyCode === 32) {
+    if (event.keyCode === 32 && input.value) {
       const span = input.insertAdjacentElement('beforebegin', document.createElement('span'));
-      span.textContent = input.value;
+      span.textContent = input.value.replace('/,/g', "");
+      interests += "'" + span.textContent.replace('/,/g', "") + "',";
       const x = span.appendChild(document.createElement('button'));
       x.textContent = 'x';
       x.onclick = () => span.remove();
       input.value = '';
     }
   });
+
+
+
+  function post()
+  {
+    interests.replace('[,]{2,}', ',');
+    console.log(interests);
+    xhr.open("POST", "/profile", true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.send(`name=${name.value.replace(/,/g, "")}&age=${age.value}&school=${school.value.replace(/,/g, "")}&interest=${interests.slice(0, -1)}`);
+    
+  }
 </script>
 
   <%- include('../partials/footer'); %>
