@@ -11,7 +11,7 @@
 }
 
 /* Additional styles go here */
-header {
+#nav {
   padding: 0 0.25rem;
   margin-bottom: 2rem;
 }
@@ -51,5 +51,27 @@ nav{
   padding: 0 1.25rem;
 }
 
+#word-cloud {
+  height: 500px; 
+  padding: 0px;
+  
+}
 
+i.thumbs{
+  font-size: 75px;
+  display: inline;
+}
 
+.fa-thumbs-up
+{
+  margin-left:4rem;
+  padding:0;
+
+}
+
+.fa-thumbs-down
+{
+  margin-right:4rem;
+  padding:0px;
+
+}
