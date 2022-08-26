@@ -10,26 +10,52 @@
     <div class="row">
       <div class="col-sm-12">
         <h1>Edit Profile</h1>
-        <p>
-          What do the functions do? What do people need to know?
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Et leo duis ut diam. Enim facilisis gravida neque convallis a cras semper auctor. Cras semper auctor
-          neque vitae tempus. Morbi tincidunt ornare massa eget egestas purus viverra. Libero enim sed faucibus turpis in eu mi
-          bibendum neque. Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Mauris in aliquam
-          sem fringilla ut morbi. Dictum non consectetur a erat nam at lectus urna duis. Tortor consequat id porta nibh. Integer
-          quis auctor elit sed vulputate. Hendrerit dolor magna eget est lorem. Suscipit tellus mauris a diam maecenas sed. Amet
-          cursus sit amet dictum sit amet.
-        </p>
-        <p>
-          <a href="">Link</a>
-        </p>
+        <form>
+          <input type="text" id="name" name="name" placeholder="Name"><br><br>
+          <input type="number" id="age" name="age" placeholder="Age"><br><br>
+          <input type="text" id="school" name="school" placeholder="School"><br><br>
+          <div class="tag-container">
+            <input id="interest" name="interest" placeholder="Interest(s)"></input>
+          </div><br><br><br><br>
+          <button onclick="post()"></button>
+        </form>
       </div>
     </div>
   </div>
 </main>
 
-  <div id="nav">
-    <%- include('../partials/nav'); %>
-  </div>
+
+<script>
+   var xhr =  new XMLHttpRequest();
+  let interests = "";
+  const input = document.getElementById("interest");
+  const age = document.getElementById("age");
+  const name = document.getElementById("name");
+  const school = document.getElementById("school");
+
+  input.addEventListener('keydown', (event) => {
+    if (event.keyCode === 32 && input.value) {
+      const span = input.insertAdjacentElement('beforebegin', document.createElement('span'));
+      span.textContent = input.value.replace('/,/g', "");
+      interests += "'" + span.textContent.replace('/,/g', "") + "',";
+      const x = span.appendChild(document.createElement('button'));
+      x.textContent = 'x';
+      x.onclick = () => span.remove();
+      input.value = '';
+    }
+  });
+
+
+
+  function post()
+  {
+    interests.replace('[,]{2,}', ',');
+    console.log(interests);
+    xhr.open("POST", "/profile", true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.send(`name=${name.value.replace(/,/g, "")}&age=${age.value}&school=${school.value.replace(/,/g, "")}&interest=${interests.slice(0, -1)}`);
+    
+  }
+</script>
+
+  <%- include('../partials/footer'); %>
